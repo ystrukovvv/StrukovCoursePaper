@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="6f927048ba464d178cb9671e1b8e5db8" Name="Diagram1" ZoomLevel="83">
+        <EntityTypeShape EntityType="HospitalBaseModel.AUTHOR" Width="1.5" PointX="13.125" PointY="1.75" />
+        <EntityTypeShape EntityType="HospitalBaseModel.CABINET" Width="1.5" PointX="8" PointY="6.875" />
+        <EntityTypeShape EntityType="HospitalBaseModel.GENDER" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="HospitalBaseModel.NEWS" Width="1.5" PointX="10.25" PointY="2.75" />
+        <EntityTypeShape EntityType="HospitalBaseModel.PRICE" Width="1.5" PointX="7.625" PointY="1.5" />
+        <EntityTypeShape EntityType="HospitalBaseModel.RECEPTION" Width="1.5" PointX="5.25" PointY="3.125" />
+        <EntityTypeShape EntityType="HospitalBaseModel.ROLE" Width="1.5" PointX="0.75" PointY="3.75" />
+        <EntityTypeShape EntityType="HospitalBaseModel.USER" Width="1.5" PointX="3" PointY="2" />
+        <AssociationConnector Association="HospitalBaseModel.FK_NEWS_AUTHORID" />
+        <AssociationConnector Association="HospitalBaseModel.RECEPTION_CABINET" />
+        <AssociationConnector Association="HospitalBaseModel.FK_USER_GENDER" />
+        <AssociationConnector Association="HospitalBaseModel.RECEPTION_PRICE" />
+        <AssociationConnector Association="HospitalBaseModel.USER_id_Doctor" />
+        <AssociationConnector Association="HospitalBaseModel.USER_id_Patient" />
+        <AssociationConnector Association="HospitalBaseModel.Role_Role" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

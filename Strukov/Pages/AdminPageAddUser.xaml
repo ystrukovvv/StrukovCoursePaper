@@ -1,0 +1,77 @@
+﻿<Page x:Class="Strukov.Pages.AdminPageAddUser"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Strukov.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="700" d:DesignWidth="800"
+      Title="AdminPageAddUser" Height="700">
+  
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="0"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="40*"/>
+            <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="70*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.ColumnSpan="3">
+            <TextBlock FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center" Name="TBlockInfo">
+                Добавление бага
+            </TextBlock>
+
+        </Grid>
+        <Grid Grid.Row="4">
+            <StackPanel Orientation="Horizontal">
+                <Button  Content="Назад" Style="{StaticResource BtnHeader}" Margin="20,0,40,0" Name="BtnBack" Click="BtnBack_Click"/>
+                <Button  Content="Добавить" Style="{StaticResource BtnHeader}" Name="BtnAddUser" Click="BtnAddUser_Click"/>
+            </StackPanel>
+
+        </Grid>
+        <Grid Grid.ColumnSpan="3" Grid.Row="2">
+            <StackPanel>
+                <ScrollViewer>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="40*"/>
+                            <ColumnDefinition Width="20"/>
+                            <ColumnDefinition Width="70*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0">
+                            <StackPanel>
+                                <TextBlock Text="id *" Style="{StaticResource TextBlockAddUser}"/>
+                                <TextBlock Text="Приоритет" Style="{StaticResource TextBlockAddUser}"/>
+                                <TextBlock Text="Критичность бага" Style="{StaticResource TextBlockAddUser}"/>
+                                <TextBlock Text="Название" Style="{StaticResource TextBlockAddUser}"/>
+                                <TextBlock Text="Назначен" Style="{StaticResource TextBlockAddUser}"/>
+                                <TextBlock Text="Дата создания" Style="{StaticResource TextBlockAddUser}"/>
+                                
+                            </StackPanel>
+                        </Grid>
+
+                        <Grid Grid.Column="2">
+                            <StackPanel>
+                                <TextBox Style="{StaticResource TextBoxkAddUser}" Name="TBoxId"/>
+                                <TextBox Style="{StaticResource TextBoxkAddUser}" Name="TBoxLogin"/>
+                                <TextBox Style="{StaticResource TextBoxkAddUser}" Name="TBoxPassword"/>
+                                <TextBox Style="{StaticResource TextBoxkAddUser}" Name="TBoxName"/>
+                                <TextBox Style="{StaticResource TextBoxkAddUser}" Name="TBoxSurname"/>
+                                
+                                <DatePicker Width="250" HorizontalAlignment="Left" Name="DatePic"/>
+                               
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
+                </ScrollViewer>
+            </StackPanel>
+        </Grid>
+        
+
+    </Grid>
+</Page>

@@ -1,0 +1,550 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище HospitalBaseModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AUTHOR">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="Nickname" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CABINET">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="number" Type="int" Nullable="false" />
+          <Property Name="doctor" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GENDER">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="GenderName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="NEWS">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="Header" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="Text" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="AuthorId" Type="int" Nullable="false" />
+          <Property Name="Date" Type="date" />
+          <Property Name="Image" Type="image" />
+        </EntityType>
+        <EntityType Name="PRICE">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="Priсе" Type="int" Nullable="false" />
+          <Property Name="NameService" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RECEPTION">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="Cabinet" Type="int" />
+          <Property Name="Doctor" Type="int" />
+          <Property Name="Patient" Type="int" Nullable="false" />
+          <Property Name="RecordingDate" Type="datetime" Nullable="false" />
+          <Property Name="Price" Type="int" />
+        </EntityType>
+        <EntityType Name="ROLE">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="Role" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="USER">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="Login" Type="varchar" MaxLength="50" />
+          <Property Name="Password" Type="varchar" MaxLength="50" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Surname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="MiddleName" Type="varchar" MaxLength="50" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
+          <Property Name="DateOfBirth" Type="date" />
+          <Property Name="Region" Type="varchar" MaxLength="50" />
+          <Property Name="Siti" Type="varchar" MaxLength="50" />
+          <Property Name="Street" Type="varchar" MaxLength="50" />
+          <Property Name="House" Type="varchar" MaxLength="50" />
+          <Property Name="Apartament" Type="varchar" MaxLength="50" />
+          <Property Name="PhoneNumber" Type="varchar" MaxLength="50" />
+          <Property Name="MedicalRecord" Type="varchar" MaxLength="10" />
+          <Property Name="Passport" Type="varchar" MaxLength="11" />
+          <Property Name="Gender" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_NEWS_AUTHORID">
+          <End Role="AUTHOR" Type="Self.AUTHOR" Multiplicity="1" />
+          <End Role="NEWS" Type="Self.NEWS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AUTHOR">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="NEWS">
+              <PropertyRef Name="AuthorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_USER_GENDER">
+          <End Role="GENDER" Type="Self.GENDER" Multiplicity="1" />
+          <End Role="USER" Type="Self.USER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GENDER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="USER">
+              <PropertyRef Name="Gender" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RECEPTION_PRICE">
+          <End Role="PRICE" Type="Self.PRICE" Multiplicity="0..1" />
+          <End Role="RECEPTION" Type="Self.RECEPTION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRICE">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="RECEPTION">
+              <PropertyRef Name="Price" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RECEPTION-CABINET">
+          <End Role="CABINET" Type="Self.CABINET" Multiplicity="0..1" />
+          <End Role="RECEPTION" Type="Self.RECEPTION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CABINET">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="RECEPTION">
+              <PropertyRef Name="Cabinet" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Role-Role">
+          <End Role="ROLE" Type="Self.ROLE" Multiplicity="1" />
+          <End Role="USER" Type="Self.USER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ROLE">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="USER">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="USER_id-Doctor">
+          <End Role="USER" Type="Self.USER" Multiplicity="0..1" />
+          <End Role="RECEPTION" Type="Self.RECEPTION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="RECEPTION">
+              <PropertyRef Name="Doctor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="USER_id-Patient">
+          <End Role="USER" Type="Self.USER" Multiplicity="1" />
+          <End Role="RECEPTION" Type="Self.RECEPTION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="RECEPTION">
+              <PropertyRef Name="Patient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище HospitalBaseModelContainer">
+          <EntitySet Name="AUTHOR" EntityType="Self.AUTHOR" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CABINET" EntityType="Self.CABINET" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GENDER" EntityType="Self.GENDER" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NEWS" EntityType="Self.NEWS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PRICE" EntityType="Self.PRICE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RECEPTION" EntityType="Self.RECEPTION" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ROLE" EntityType="Self.ROLE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="USER" EntityType="Self.USER" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_NEWS_AUTHORID" Association="Self.FK_NEWS_AUTHORID">
+            <End Role="AUTHOR" EntitySet="AUTHOR" />
+            <End Role="NEWS" EntitySet="NEWS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_USER_GENDER" Association="Self.FK_USER_GENDER">
+            <End Role="GENDER" EntitySet="GENDER" />
+            <End Role="USER" EntitySet="USER" />
+          </AssociationSet>
+          <AssociationSet Name="RECEPTION_PRICE" Association="Self.RECEPTION_PRICE">
+            <End Role="PRICE" EntitySet="PRICE" />
+            <End Role="RECEPTION" EntitySet="RECEPTION" />
+          </AssociationSet>
+          <AssociationSet Name="RECEPTION-CABINET" Association="Self.RECEPTION-CABINET">
+            <End Role="CABINET" EntitySet="CABINET" />
+            <End Role="RECEPTION" EntitySet="RECEPTION" />
+          </AssociationSet>
+          <AssociationSet Name="Role-Role" Association="Self.Role-Role">
+            <End Role="ROLE" EntitySet="ROLE" />
+            <End Role="USER" EntitySet="USER" />
+          </AssociationSet>
+          <AssociationSet Name="USER_id-Doctor" Association="Self.USER_id-Doctor">
+            <End Role="USER" EntitySet="USER" />
+            <End Role="RECEPTION" EntitySet="RECEPTION" />
+          </AssociationSet>
+          <AssociationSet Name="USER_id-Patient" Association="Self.USER_id-Patient">
+            <End Role="USER" EntitySet="USER" />
+            <End Role="RECEPTION" EntitySet="RECEPTION" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="HospitalBaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="HospitalBaseEntities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AUTHORs" EntityType="HospitalBaseModel.AUTHOR" />
+          <EntitySet Name="CABINETs" EntityType="HospitalBaseModel.CABINET" />
+          <EntitySet Name="GENDERs" EntityType="HospitalBaseModel.GENDER" />
+          <EntitySet Name="NEWS" EntityType="HospitalBaseModel.NEWS" />
+          <EntitySet Name="PRICEs" EntityType="HospitalBaseModel.PRICE" />
+          <EntitySet Name="RECEPTIONs" EntityType="HospitalBaseModel.RECEPTION" />
+          <EntitySet Name="ROLEs" EntityType="HospitalBaseModel.ROLE" />
+          <EntitySet Name="USERs" EntityType="HospitalBaseModel.USER" />
+          <AssociationSet Name="FK_NEWS_AUTHORID" Association="HospitalBaseModel.FK_NEWS_AUTHORID">
+            <End Role="AUTHOR" EntitySet="AUTHORs" />
+            <End Role="NEWS" EntitySet="NEWS" />
+          </AssociationSet>
+          <AssociationSet Name="RECEPTION_CABINET" Association="HospitalBaseModel.RECEPTION_CABINET">
+            <End Role="CABINET" EntitySet="CABINETs" />
+            <End Role="RECEPTION" EntitySet="RECEPTIONs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_USER_GENDER" Association="HospitalBaseModel.FK_USER_GENDER">
+            <End Role="GENDER" EntitySet="GENDERs" />
+            <End Role="USER" EntitySet="USERs" />
+          </AssociationSet>
+          <AssociationSet Name="RECEPTION_PRICE" Association="HospitalBaseModel.RECEPTION_PRICE">
+            <End Role="PRICE" EntitySet="PRICEs" />
+            <End Role="RECEPTION" EntitySet="RECEPTIONs" />
+          </AssociationSet>
+          <AssociationSet Name="USER_id_Doctor" Association="HospitalBaseModel.USER_id_Doctor">
+            <End Role="USER" EntitySet="USERs" />
+            <End Role="RECEPTION" EntitySet="RECEPTIONs" />
+          </AssociationSet>
+          <AssociationSet Name="USER_id_Patient" Association="HospitalBaseModel.USER_id_Patient">
+            <End Role="USER" EntitySet="USERs" />
+            <End Role="RECEPTION" EntitySet="RECEPTIONs" />
+          </AssociationSet>
+          <AssociationSet Name="Role_Role" Association="HospitalBaseModel.Role_Role">
+            <End Role="ROLE" EntitySet="ROLEs" />
+            <End Role="USER" EntitySet="USERs" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="AUTHOR">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="Nickname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="NEWS" Relationship="HospitalBaseModel.FK_NEWS_AUTHORID" FromRole="AUTHOR" ToRole="NEWS" />
+        </EntityType>
+        <EntityType Name="CABINET">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="number" Type="Int32" Nullable="false" />
+          <Property Name="doctor" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="RECEPTIONs" Relationship="HospitalBaseModel.RECEPTION_CABINET" FromRole="CABINET" ToRole="RECEPTION" />
+        </EntityType>
+        <EntityType Name="GENDER">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="GenderName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="USERs" Relationship="HospitalBaseModel.FK_USER_GENDER" FromRole="GENDER" ToRole="USER" />
+        </EntityType>
+        <EntityType Name="NEWS">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="Header" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Text" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AuthorId" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="AUTHOR" Relationship="HospitalBaseModel.FK_NEWS_AUTHORID" FromRole="NEWS" ToRole="AUTHOR" />
+        </EntityType>
+        <EntityType Name="PRICE">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="Priсе" Type="Int32" Nullable="false" />
+          <Property Name="NameService" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="RECEPTIONs" Relationship="HospitalBaseModel.RECEPTION_PRICE" FromRole="PRICE" ToRole="RECEPTION" />
+        </EntityType>
+        <EntityType Name="RECEPTION">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="Cabinet" Type="Int32" />
+          <Property Name="Doctor" Type="Int32" />
+          <Property Name="Patient" Type="Int32" Nullable="false" />
+          <Property Name="RecordingDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Price" Type="Int32" />
+          <NavigationProperty Name="CABINET1" Relationship="HospitalBaseModel.RECEPTION_CABINET" FromRole="RECEPTION" ToRole="CABINET" />
+          <NavigationProperty Name="PRICE1" Relationship="HospitalBaseModel.RECEPTION_PRICE" FromRole="RECEPTION" ToRole="PRICE" />
+          <NavigationProperty Name="USER" Relationship="HospitalBaseModel.USER_id_Doctor" FromRole="RECEPTION" ToRole="USER" />
+          <NavigationProperty Name="USER1" Relationship="HospitalBaseModel.USER_id_Patient" FromRole="RECEPTION" ToRole="USER" />
+        </EntityType>
+        <EntityType Name="ROLE">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="Role1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="USERs" Relationship="HospitalBaseModel.Role_Role" FromRole="ROLE" ToRole="USER" />
+        </EntityType>
+        <EntityType Name="USER">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Surname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MiddleName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <Property Name="DateOfBirth" Type="DateTime" Precision="0" />
+          <Property Name="Region" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Siti" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Street" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="House" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Apartament" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MedicalRecord" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Passport" Type="String" MaxLength="11" FixedLength="false" Unicode="false" />
+          <Property Name="Gender" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="GENDER1" Relationship="HospitalBaseModel.FK_USER_GENDER" FromRole="USER" ToRole="GENDER" />
+          <NavigationProperty Name="RECEPTIONs" Relationship="HospitalBaseModel.USER_id_Doctor" FromRole="USER" ToRole="RECEPTION" />
+          <NavigationProperty Name="RECEPTIONs1" Relationship="HospitalBaseModel.USER_id_Patient" FromRole="USER" ToRole="RECEPTION" />
+          <NavigationProperty Name="ROLE" Relationship="HospitalBaseModel.Role_Role" FromRole="USER" ToRole="ROLE" />
+        </EntityType>
+        <Association Name="FK_NEWS_AUTHORID">
+          <End Type="HospitalBaseModel.AUTHOR" Role="AUTHOR" Multiplicity="1" />
+          <End Type="HospitalBaseModel.NEWS" Role="NEWS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AUTHOR">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="NEWS">
+              <PropertyRef Name="AuthorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RECEPTION_CABINET">
+          <End Type="HospitalBaseModel.CABINET" Role="CABINET" Multiplicity="0..1" />
+          <End Type="HospitalBaseModel.RECEPTION" Role="RECEPTION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CABINET">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="RECEPTION">
+              <PropertyRef Name="Cabinet" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_USER_GENDER">
+          <End Type="HospitalBaseModel.GENDER" Role="GENDER" Multiplicity="1" />
+          <End Type="HospitalBaseModel.USER" Role="USER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GENDER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="USER">
+              <PropertyRef Name="Gender" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RECEPTION_PRICE">
+          <End Type="HospitalBaseModel.PRICE" Role="PRICE" Multiplicity="0..1" />
+          <End Type="HospitalBaseModel.RECEPTION" Role="RECEPTION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRICE">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="RECEPTION">
+              <PropertyRef Name="Price" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="USER_id_Doctor">
+          <End Type="HospitalBaseModel.USER" Role="USER" Multiplicity="0..1" />
+          <End Type="HospitalBaseModel.RECEPTION" Role="RECEPTION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="RECEPTION">
+              <PropertyRef Name="Doctor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="USER_id_Patient">
+          <End Type="HospitalBaseModel.USER" Role="USER" Multiplicity="1" />
+          <End Type="HospitalBaseModel.RECEPTION" Role="RECEPTION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="RECEPTION">
+              <PropertyRef Name="Patient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Role_Role">
+          <End Type="HospitalBaseModel.ROLE" Role="ROLE" Multiplicity="1" />
+          <End Type="HospitalBaseModel.USER" Role="USER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ROLE">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="USER">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище HospitalBaseModelContainer" CdmEntityContainer="HospitalBaseEntities2">
+          <EntitySetMapping Name="AUTHORs">
+            <EntityTypeMapping TypeName="HospitalBaseModel.AUTHOR">
+              <MappingFragment StoreEntitySet="AUTHOR">
+                <ScalarProperty Name="Nickname" ColumnName="Nickname" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CABINETs">
+            <EntityTypeMapping TypeName="HospitalBaseModel.CABINET">
+              <MappingFragment StoreEntitySet="CABINET">
+                <ScalarProperty Name="doctor" ColumnName="doctor" />
+                <ScalarProperty Name="number" ColumnName="number" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GENDERs">
+            <EntityTypeMapping TypeName="HospitalBaseModel.GENDER">
+              <MappingFragment StoreEntitySet="GENDER">
+                <ScalarProperty Name="GenderName" ColumnName="GenderName" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NEWS">
+            <EntityTypeMapping TypeName="HospitalBaseModel.NEWS">
+              <MappingFragment StoreEntitySet="NEWS">
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="AuthorId" ColumnName="AuthorId" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="Header" ColumnName="Header" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PRICEs">
+            <EntityTypeMapping TypeName="HospitalBaseModel.PRICE">
+              <MappingFragment StoreEntitySet="PRICE">
+                <ScalarProperty Name="NameService" ColumnName="NameService" />
+                <ScalarProperty Name="Priсе" ColumnName="Priсе" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RECEPTIONs">
+            <EntityTypeMapping TypeName="HospitalBaseModel.RECEPTION">
+              <MappingFragment StoreEntitySet="RECEPTION">
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="RecordingDate" ColumnName="RecordingDate" />
+                <ScalarProperty Name="Patient" ColumnName="Patient" />
+                <ScalarProperty Name="Doctor" ColumnName="Doctor" />
+                <ScalarProperty Name="Cabinet" ColumnName="Cabinet" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ROLEs">
+            <EntityTypeMapping TypeName="HospitalBaseModel.ROLE">
+              <MappingFragment StoreEntitySet="ROLE">
+                <ScalarProperty Name="Role1" ColumnName="Role" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="USERs">
+            <EntityTypeMapping TypeName="HospitalBaseModel.USER">
+              <MappingFragment StoreEntitySet="USER">
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Passport" ColumnName="Passport" />
+                <ScalarProperty Name="MedicalRecord" ColumnName="MedicalRecord" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Apartament" ColumnName="Apartament" />
+                <ScalarProperty Name="House" ColumnName="House" />
+                <ScalarProperty Name="Street" ColumnName="Street" />
+                <ScalarProperty Name="Siti" ColumnName="Siti" />
+                <ScalarProperty Name="Region" ColumnName="Region" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

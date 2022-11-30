@@ -1,0 +1,47 @@
+﻿<Page x:Class="Strukov.AdminPageUsers"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Strukov"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="AdminPageUsers">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="80*"/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <TextBlock FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center">
+                Список багов
+            </TextBlock>
+        </Grid>
+        
+        <Grid Grid.Row="2">
+            <StackPanel Orientation="Horizontal">
+                <Button  Content="Назад" Style="{StaticResource BtnHeader}" Margin="20,0,30,0" Name="BtnBack" Click="BtnBack_Click"/>
+                <Button  Content="Добавить баг" Style="{StaticResource BtnHeader}" Name="BtnAddUser" Click="BtnAddUser_Click"/>
+                <Button  Content="Редактировать" Style="{StaticResource BtnHeader}" Name="BtnEdit" Margin="30,0,0,0" Click="BtnEdit_Click"/>
+                <Button  Content="Удалить" Style="{StaticResource BtnHeader}" Name="BtnDelete" Margin="30,0,0,0" Click="BtnDelete_Click"/>
+                <Button  Content="Экспорт Excel" Style="{StaticResource BtnHeader}" Name="BtnExcel" Margin="30,0,0,0" Click="BtnExcel_Click"/>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <DataGrid Name="DataGridUsers" AutoGenerateColumns="False" FontSize="8">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="id" Binding="{Binding id}" Width="2*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Приоритет" Binding="{Binding Login}" Width="2*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Критичность бага" Binding="{Binding Password}" Width="2*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Название" Binding="{Binding Name}" Width="2*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Назначен" Binding="{Binding Surname}" Width="2*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Дата создания" Binding="{Binding MiddleName}" Width="2*"></DataGridTextColumn>
+                   
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </Grid>
+</Page>
